@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Regular weight */
+@font-face {
+  font-family: 'Shentox';
+  src: url('/assets/Shentox-Rg.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Bold weight */
+@font-face {
+  font-family: 'Shentox';
+  src: url('/assets/Shentox-Bd.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Thin weight */
+@font-face {
+  font-family: 'Shentox';
+  src: url('/assets/Shentox-Th.otf') format('opentype');
+  font-weight: 100;  
+  font-style: normal;
+}

@@ -1,0 +1,27 @@
+.landing-page {
+    height: 100vh;
+    width: 100vw;
+    background-image: url('/assets/background.png'); /* Place the image in the assets folder */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .content {
+    text-align: center;
+    color: #343638 ;
+    font-family: 'Shentox', sans-serif; /* Use Shentox as the primary font */
+  }
+
+  .login-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-top: 50px;
+  }
+
+  
