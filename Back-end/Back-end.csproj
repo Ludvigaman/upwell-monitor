@@ -8,42 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="ESI.NET\.github\workflows\ci.yml" />
-    <None Include="ESI.NET\.git\config" />
-    <None Include="ESI.NET\.git\description" />
-    <None Include="ESI.NET\.git\HEAD" />
-    <None Include="ESI.NET\.git\hooks\applypatch-msg.sample" />
-    <None Include="ESI.NET\.git\hooks\commit-msg.sample" />
-    <None Include="ESI.NET\.git\hooks\fsmonitor-watchman.sample" />
-    <None Include="ESI.NET\.git\hooks\post-update.sample" />
-    <None Include="ESI.NET\.git\hooks\pre-applypatch.sample" />
-    <None Include="ESI.NET\.git\hooks\pre-commit.sample" />
-    <None Include="ESI.NET\.git\hooks\pre-merge-commit.sample" />
-    <None Include="ESI.NET\.git\hooks\pre-push.sample" />
-    <None Include="ESI.NET\.git\hooks\pre-rebase.sample" />
-    <None Include="ESI.NET\.git\hooks\pre-receive.sample" />
-    <None Include="ESI.NET\.git\hooks\prepare-commit-msg.sample" />
-    <None Include="ESI.NET\.git\hooks\push-to-checkout.sample" />
-    <None Include="ESI.NET\.git\hooks\update.sample" />
-    <None Include="ESI.NET\.git\index" />
-    <None Include="ESI.NET\.git\info\exclude" />
-    <None Include="ESI.NET\.git\logs\HEAD" />
-    <None Include="ESI.NET\.git\logs\refs\heads\master" />
-    <None Include="ESI.NET\.git\logs\refs\remotes\origin\HEAD" />
-    <None Include="ESI.NET\.git\objects\pack\pack-87daae32059d1d3f1ad12c59c235cede8ee31485.idx" />
-    <None Include="ESI.NET\.git\objects\pack\pack-87daae32059d1d3f1ad12c59c235cede8ee31485.pack" />
-    <None Include="ESI.NET\.git\packed-refs" />
-    <None Include="ESI.NET\.git\refs\heads\master" />
-    <None Include="ESI.NET\.git\refs\remotes\origin\HEAD" />
-    <None Include="ESI.NET\ESI.NET.sln" />
-    <None Include="ESI.NET\ESI.NET\ESI.NET.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ESI.NET\" />
   </ItemGroup>
 
 </Project>
