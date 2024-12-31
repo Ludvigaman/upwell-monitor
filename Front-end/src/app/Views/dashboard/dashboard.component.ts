@@ -6,7 +6,7 @@ import { AuthorizedCharacterData } from '../../Models/AuthorizedCharacterData';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent implements OnInit{
 
@@ -24,6 +24,8 @@ export class DashboardComponent implements OnInit{
   }
   
   ngOnInit(){
+    console.log("Checking data age...")
+    this.checkDataAge();
     this.intervalId = setInterval(() => {
       console.log("Checking data age...")
       this.checkDataAge();
