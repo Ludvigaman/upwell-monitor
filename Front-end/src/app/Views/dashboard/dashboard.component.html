@@ -36,6 +36,7 @@
                             <p style="font-size: 16px;">{{ structure.name }}</p>
                             <p style="font-size: 16px; display: flex; justify-content: center;"><b>{{ getStructureTypeName(structure.typeId) }}</b><img src="{{getStructureIconPath(structure.typeId)}}" alt="" style="margin-left: 5px;"></p>
                         </div>
+                        <mat-progress-bar mode="determinate" value="{{ daysUntil(structure.fuelExpires) }}"></mat-progress-bar>
                         <div class="stats">
                             <div class="leftSide">
                                 <p style="font-size: 16px;">Fuel bay: <b>{{ structure.fuelBlocksInFuelBay }}</b> blocks</p>
@@ -49,14 +50,12 @@
                             </div>
                         </div>
                     </div>
-    
                 </div>
             </ng-container>
         </ng-container>
         <ng-container *ngIf="view == 0">
             <div style="text-align: center;">
-                <p style="margin-top: 100px">Please press the refresh <b>once</b> button in the right corner to load all data...</p>
-                <p>The data might take 5-20 seconds to load, the page will refresh onces everything is loaded.</p>
+                <p style="margin-top: 100px">The data might take 5-20 seconds to load, the page will refresh onces everything is loaded.</p>
             </div>
         </ng-container>
         <ng-container *ngIf="view == 2">

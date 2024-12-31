@@ -64,7 +64,6 @@ body {
   flex-direction: row;
   justify-content: space-between;
   padding: 10px;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.5);
 }
 
 .stats {
@@ -157,3 +156,5 @@ body {
   font-weight: 100;  
   font-style: normal;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
