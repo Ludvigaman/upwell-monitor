@@ -1,27 +1,25 @@
-.landing-page {
+  .landing-page {
     height: 100vh;
     width: 100vw;
-    background-image: url('/assets/background.png'); /* Place the image in the assets folder */
-    background-size: cover;
-    background-position: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
+
+  .dashboard {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 50px;
+    align-items: center;
+  }
   
   .content {
     text-align: center;
-    color: #343638 ;
+    color: white ;
     font-family: 'Shentox', sans-serif; /* Use Shentox as the primary font */
-  }
-
-  .login-button {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    margin-top: 50px;
   }
 
   

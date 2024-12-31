@@ -1,4 +1,5 @@
 using Back_end.Controllers;
+using Back_end.Services;
 using ESI.NET;
 using ESI.NET.Models.Corporation;
 
@@ -18,6 +19,7 @@ var esiSettings = builder.Configuration.GetSection("ESIConfig");
 builder.Services.AddEsi(esiSettings);
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<ESIController>();
+builder.Services.AddTransient<ESIService>();
 
 var app = builder.Build();
 

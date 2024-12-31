@@ -1,0 +1,90 @@
+<div class="blurred-div">
+    <div class="header">
+        <img src="/assets/items/Structure.png" alt="" style="max-height: 40px; margin-right: 10px;">
+        <p>Structures</p>
+        <span style="flex: 1"></span>
+        <button class="login-button" style="margin: 0; margin-right: 10px;" (click)="view = 1">
+            <p style="font-size: 15px;">Overview</p>
+            <img src="/assets/items/Structure.png" alt="Refresh data" style="height: 20px; margin-left: 10px;">
+        </button>
+        <button class="login-button" style="margin: 0; margin-right: 10px;" (click)="view = 2">
+            <p style="font-size: 15px;">Guide / Data statistics</p>
+            <img src="/assets/items/help.png" alt="Refresh data" style="height: 20px; margin-left: 10px;">
+        </button>
+        <button class="login-button" style="margin: 0; margin-right: 10px;" (click)="view = 3">
+            <p style="font-size: 15px;">Report bug</p>
+            <img src="/assets/items/bug.png" alt="Refresh data" style="height: 20px; margin-left: 10px;">
+        </button>
+    </div>
+    <div class="tools">
+        <img style="height: 30px; margin-right: 10px;" src="/assets/items/user.png" alt=""><p style="font-size: 16px;"><b>Welcome</b>, {{ name }}</p>
+        <span style="flex: 1"></span>
+        <button class="login-button" style="margin: 0; margin-left: 10px;" (click)="logOut()">
+            <p style="font-size: 16px;">Sign out</p>
+            <img src="/assets/items/Logout.png" alt="Refresh data" style="height: 20px; margin-left: 10px;">
+        </button>
+    </div>
+    <div class="structures">
+        <ng-container *ngIf="view == 1">
+            <ng-container *ngFor="let structure of structureData">
+                <div class="structure-container">
+                    <div class="imgHolder">
+                        <img class="structure-image" src="{{getStructureImagePath(structure.typeId)}}" alt="">
+                    </div>
+                    <div style="flex:1">
+                        <div class="info">
+                            <p style="font-size: 16px;">{{ structure.name }}</p>
+                            <p style="font-size: 16px; display: flex; justify-content: center;"><b>{{ getStructureTypeName(structure.typeId) }}</b><img src="{{getStructureIconPath(structure.typeId)}}" alt="" style="margin-left: 5px;"></p>
+                        </div>
+                        <div class="stats">
+                            <div class="leftSide">
+                                <p style="font-size: 16px;">Fuel bay: <b>{{ structure.fuelBlocksInFuelBay }}</b> blocks</p>
+                                <p style="font-size: 16px;">Expiry date: {{ structure.fuelExpires | date:'d MMM y'}}</p>
+                                <p style="font-size: 16px;">Next shipment:</p>
+                            </div>
+                            <div class="rightSide">
+                                <p style="font-size: 16px;"><b>{{ structure.fuelBlocksPerDay }}</b> / day</p>
+                                <p style="font-size: 16px;"><b [ngStyle]="{'color': getTextColor(daysUntil(structure.fuelExpires))}">{{ daysUntil(structure.fuelExpires) }}</b> days left</p>
+                                <p style="font-size: 16px; display: flex; justify-content: center; margin-top: 2px;"><b>{{ nextShipment(structure) }}</b><img style="height: 20px;" src="/assets/items/FuelBlock.png" alt=""></p>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+            </ng-container>
+        </ng-container>
+        <ng-container *ngIf="view == 0">
+            <div style="text-align: center;">
+                <p style="margin-top: 100px">Please press the refresh <b>once</b> button in the right corner to load all data...</p>
+                <p>The data might take 5-20 seconds to load, the page will refresh onces everything is loaded.</p>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="view == 2">
+            <div style="text-align: center;">
+                <p style="margin-top: 100px"><b>Guide</b></p>
+                <p style="margin-top: 20px">Your current data is: <b>{{ dateString }}</b></p>
+                <br>
+                <p>The site automatically checks the age of your data, and fetches new data it if it's older than 1 hour.</p>
+                <br>
+                <p>The next shipment is calculated based on how much your structure needs to run for 90 days.</p>
+                <p style="margin-top: 50px"><b>Special thanks to</b></p>
+                <p style="margin-top: 20px">The contributors at Seraphx2, for making the ESI.NET wrapper.</p>
+                <p>Find out more about their project here:</p>
+                <br>
+                <a href="https://github.com/seraphx2/ESI.NET" target="_blank">
+                    <img src="/assets/github.png" style="height: 50px" alt="">
+                </a>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="view == 3">
+            <div style="text-align: center;">
+                <p style="margin-top: 100px"><b>Report a bug</b></p>
+                <p style="margin-top: 20px">If you've found a bug, please report it on Github!</p>
+                <br>
+                <a href="https://github.com/Ludvigaman/upwell-monitor/issues" target="_blank">
+                    <img src="/assets/github.png" style="height: 50px" alt="">
+                </a>
+            </div>
+        </ng-container>
+    </div>
+</div>

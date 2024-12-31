@@ -70,13 +70,7 @@ namespace ESI.NET
 
             return url;
         }
-        
-        public string GenerateChallengeCode()
-        {
-            const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars, 32).Select(s => s[random.Next(s.Length)]).ToArray());
-        }
-
+       
         /// <summary>
         /// SSO Token helper
         /// </summary>

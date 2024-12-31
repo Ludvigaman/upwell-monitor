@@ -1,11 +1,16 @@
-<div class="landing-page">
+<div class="landing-page" *ngIf="!isLoggedIn">
   <div class="content">
     <h1>Upwell Structure Monitor</h1>
-    <p>A nice tool proudly presented by a dude that hates excel</p>
-    <i>- Angelica Takanawa</i>
-  </div>
+    <p>The only logistics tool you need to monitor your corporation structures, <br>see daily consumption and calculate next your next shipment</p>
+    <i>Proudly presented by a dude that hates excel. <br>
+      - Angelica Takanawa</i>
+    </div>
 
   <button class="login-button" (click)="onLoginClick()">
     <img src="/assets/eve-sso-login-black-large.png" alt="Login with EVE SSO">
   </button>
+</div>
+
+<div class="dashboard" *ngIf="isLoggedIn">
+  <app-dashboard></app-dashboard>
 </div>

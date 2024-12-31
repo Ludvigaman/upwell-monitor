@@ -8,12 +8,14 @@ import { ESIServiceService } from './Services/esiservice.service';
 })
 export class AppComponent implements OnInit{
   title = 'Upwell Monitor';
+  isLoggedIn: boolean = false;
 
   constructor(private esiService: ESIServiceService){
   }
 
   ngOnInit() {
     const urlParams = new URLSearchParams(window.location.search);
+
     if (urlParams.has('code') && urlParams.has('state')) {
         const code = urlParams.get('code');
         const state = urlParams.get('state');
@@ -24,6 +26,9 @@ export class AppComponent implements OnInit{
           this.esiService.setLocalAuthData(code, state);
         }
     }
+
+    this.isLoggedIn = this.esiService.checkTokenExpiry();
+    
   }
 
   onLoginClick() {

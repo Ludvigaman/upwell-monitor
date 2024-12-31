@@ -8,9 +8,8 @@ namespace ESI.NET.Models.SSO
         public string CharacterName { get; set; }
         public DateTime ExpiresOn { get; set; }
         public string Scopes { get; set; }
-        public string TokenType { get; set; }
+        public string ?TokenType { get; set; }
         public string CharacterOwnerHash { get; set; }
-
         public string Token { get; set; }
         public string RefreshToken { get; set; }
         public int AllianceID { get; set; }

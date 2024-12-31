@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { catchError, Observable } from 'rxjs';
-import { SsoToken } from '../Models/SsoToken';
+import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs';
 import { AuthorizedCharacterData } from '../Models/AuthorizedCharacterData';
 import { API_URL } from '../Constants/Constants';
+import { StructureItem } from '../Models/StructureItem';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,36 @@ export class ESIServiceService {
   baseUrl = API_URL;
 
   constructor(private http: HttpClient) { }
+
+  getStructureList() {
+    var validationData = this.loadLocalAuthData();
+    if(validationData != null){
+      const _url = `${this.baseUrl}/api/ESI/getStructureList`;
+  
+      this.http.post<StructureItem[]>(_url, validationData).subscribe(r => {
+        console.log(r);
+        localStorage.setItem("lastFetch", new Date().toISOString());
+        localStorage.setItem("structures", JSON.stringify(r));
+        location.reload();
+      });
+    } else {
+      console.log("Error in getStructureList")
+    }
+  }  
+
+  loadStructureListFromStorage(): StructureItem[]{
+    var structureList: StructureItem[];
+    var jsonData = localStorage.getItem("structures");
+    if(jsonData != null){
+      structureList = JSON.parse(jsonData);
+    } else {
+      structureList = [];
+    }
+
+    return structureList;
+  }
+
+  /* ------------- Authentication methods --------------------- */
 
   setLocalAuthData(code: string, state: string){
     const storedChallengeCode = localStorage.getItem("challengeCode");
@@ -32,31 +62,88 @@ export class ESIServiceService {
 
     this.http.get<AuthorizedCharacterData>(_url).pipe(catchError(async (err) => new AuthorizedCharacterData())).subscribe(r => {
       localStorage.setItem("authData", JSON.stringify(r));
-      console.log("Character data loaded...")
+      localStorage.removeItem("challengeCode");
+      console.log("Character data loaded...");
       window.history.replaceState({}, '', window.location.pathname);
+      location.reload();
     }, err => {
       console.error("Failed to authenticate...")
     });
+  }
+
+  refreshLocalAuthData(){
+    var data = this.loadLocalAuthData();
+    if(data != null && JSON.stringify(data) != '{}'){
+      var refreshToken = data!.refreshToken;
+
+      const _url = this.baseUrl + `/api/ESI/refreshTokenAndGetData?refreshToken=${encodeURIComponent(refreshToken)}`;
+      this.http.get<AuthorizedCharacterData>(_url).pipe(catchError(async (err) => new AuthorizedCharacterData())).subscribe(r => {
+        localStorage.setItem("authData", JSON.stringify(r));
+        console.log("Character data refreshed...");
+        window.history.replaceState({}, '', window.location.pathname);
+      }, err => {
+        console.error("Failed to refresh...")
+      });
+    } else {
+      this.clearLocalAuthData();
+    }
   }
 
   getAuthenticationUrl() {
     var challengeCode = this.createChallengeCode();
     localStorage.setItem("challengeCode", challengeCode);
     var _url = this.baseUrl + `/api/ESI/createAuthenticationUrl?challengeCode=${encodeURIComponent(challengeCode)}`;
-  
-    // Expect the response to be an object with a 'url' property of type string
+
     return this.http.get<{ url: string }>(_url);
   }
-  
 
-  loadLocalAuthData() {
+  loadLocalAuthData(): AuthorizedCharacterData | null {
     var data: AuthorizedCharacterData = new AuthorizedCharacterData();
     var jsonData = localStorage.getItem("authData");
     if(jsonData != null){
-      data = JSON.parse(jsonData);
+      data = JSON.parse(jsonData) as AuthorizedCharacterData;
       return data
     } else {
       return null;
+    }
+  }
+
+  getLastUpdateTime(){
+    var dateString = localStorage.getItem("lastFetch");
+    if(dateString != null){
+      var date = new Date(dateString);
+      return date;
+    }
+    return null;
+  }
+
+  clearLocalAuthData(){
+    localStorage.removeItem("authData");
+  }
+
+  logOff(){
+    localStorage.clear();
+  }
+
+  checkTokenExpiry(): boolean{
+    var data = this.loadLocalAuthData();
+
+    if(data){
+      var expiryDate = new Date(data!.expiresOn);
+      var currentDate = new Date();
+      if (currentDate < expiryDate) {
+        console.log('SSO token still valid...');
+        return true;
+        // Add your action here
+      } else {
+        console.log('SSO token expired, refreshing...');
+        this.refreshLocalAuthData();
+        return true;
+        // Add your alternative action here
+      }
+    } else {
+      this.clearLocalAuthData();
+      return false;
     }
   }
 

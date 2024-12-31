@@ -6,6 +6,134 @@ html, body {
     height: 100%;
 }
 
+body {
+  background-image: url('/assets/background2.jpeg'); /* Place the image in the assets folder */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Keeps the background fixed while scrolling */
+}
+
+
+.login-button {
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 50px;
+}
+
+.header {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+  padding: 10px;
+}
+
+.tools {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+  padding: 10px;
+}
+
+.structures {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  justify-content: center; /* Center the items horizontally */
+  width: 100%;
+  align-items: flex-start; /* Align items to the top */
+  box-sizing: border-box;
+}
+
+.imgHolder {
+  height: 100%;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+}
+
+.stats {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.fuelSection {
+  width: 40%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px;
+}
+
+.rightSide {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.fuelNumbers {
+ height: 50%;
+}
+
+.fuelTime {
+  height: 50%;
+}
+
+.structure-container {
+  width: 49.5%; /* Make each container take up 50% of the width */
+  box-sizing: border-box; /* Ensures padding is included in width */
+  margin: 2px; /* Optional padding to create space between items */
+  display: flex;
+  justify-content: flex-start; /* Center content inside the container */
+  height: 120px;
+  background-color: rgba(6, 33, 39, 0.3);
+}
+
+.structure-image {
+  max-height: 100%; /* Ensure image stays within the container */
+  width: auto;
+}
+
+.blurred-div {
+  background-color: rgba(18, 49, 56, 0.85); /* Semi-transparent overlay */
+  width: 90vw;
+  min-height: 90vh;
+  position: relative; /* Enable stacking context */
+  backdrop-filter: blur(3px); /* Apply blur */
+  isolation: isolate; /* Prevent interference with other elements */
+  margin: auto; /* Center the div */
+  display: flex; /* Optional: for centering content inside */
+  flex-direction: column;
+
+  align-items: flex-start; /* Optional: vertical centering */
+  justify-content: flex-start; /* Optional: horizontal centering */
+
+  border-top: 2px solid rgba(63, 178, 255, 0.8); /* Bright blue border */
+  box-shadow: 0 -7px 10px -5px rgba(50, 207, 255, 0.8); /* Glowing effect ONLY on the top */
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.281) 0px, transparent 1px);
+  background-size: 30px 30px; /* Adjust size of the dots */
+
+  margin-bottom: 50px;
+  
+}
+
 /* Regular weight */
 @font-face {
   font-family: 'Shentox';

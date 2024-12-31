@@ -1,4 +1,5 @@
-﻿using ESI.NET;
+﻿using Back_end.Services;
+using ESI.NET;
 using ESI.NET.Enumerations;
 using ESI.NET.Models.SSO;
 using Microsoft.AspNetCore.Http;
@@ -13,15 +14,22 @@ namespace Back_end.Controllers
     public class ESIController : ControllerBase
     {
         private readonly IEsiClient _client;
+        private readonly ESIService _esiService;
         public ESIController(IEsiClient client) {
 
+            _esiService = new ESIService(client);
             _client = client;
         }
 
         [HttpGet("createAuthenticationUrl")]
         public IActionResult CreateAuthenticationUrl(string challengeCode)
         {
-            var scopes = new List<string>();
+            var scopes = new List<string>
+            {
+                "esi-assets.read_corporation_assets.v1",
+                "esi-corporations.read_structures.v1"
+            };
+
             var url = _client.SSO.CreateAuthenticationUrl(scopes, "authentication", challengeCode);
 
             return Ok(new { url = url });
@@ -38,6 +46,25 @@ namespace Back_end.Controllers
             }
 
             return BadRequest("Incorrect state");
+        }
+
+        [HttpGet("refreshTokenAndGetData")]
+        public async Task<IActionResult> RefreshAuthenticationToken(string refreshToken)
+        {
+            SsoToken token = await _client.SSO.GetToken(GrantType.RefreshToken, refreshToken);
+
+            AuthorizedCharacterData authorizedCharacterData = await _client.SSO.Verify(token);
+
+            return Ok(authorizedCharacterData);
+        }
+
+        [HttpPost("getStructureList")]
+        public async Task<IActionResult> GetStructureList([FromBody] AuthorizedCharacterData validationData)
+        {
+            _client.SetCharacterData(validationData);
+            var structureList = await _esiService.GetStructureIdList();
+
+            return Ok(structureList);
         }
     }
 }
