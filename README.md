@@ -29,4 +29,11 @@ Loading page:
 ![Loading page](https://i.imgur.com/2gZFSWR.png)
 
 # Set-up
-
+**IIS**
+1) Create a new Site in IIS for: </br>
+Front-end</br>
+Back-end</br></br>
+2) Move the corresponding content from the Front-end / Back-end folders to their corresponsing IIS folders.</br>
+3) Update the appsettings.json (back-end) file with your own application credentials; as well as eventual whitelist?
+4) Update the constants.ts in the front-end, with the API url and the whitelist.
+5) Done?
