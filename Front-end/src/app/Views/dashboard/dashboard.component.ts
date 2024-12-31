@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit{
   dateString = "N/A";
   name = "";
   view = 0;
+  whitelisted = false;
 
   private intervalId: any;
 
@@ -24,24 +25,34 @@ export class DashboardComponent implements OnInit{
   }
   
   ngOnInit(){
-    console.log("Checking data age...")
-    this.checkDataAge();
-    this.intervalId = setInterval(() => {
+
+    this.whitelisted = this.esiService.checkWhitelist();
+    if(this.whitelisted){
       console.log("Checking data age...")
       this.checkDataAge();
-    }, 60000);
-    
-    this.loadData();
-
-    var d = this.esiService.getLastUpdateTime();
-    if(d != null){
-      var now = new Date();
-      this.lastUpdateTime = d;
-      this.dateString = this.getTimeDifference(this.lastUpdateTime, now)
+      this.intervalId = setInterval(() => {
+        console.log("Checking data age...")
+        this.checkDataAge();
+      }, 60000);
+      
+      this.loadData();
+  
+      var d = this.esiService.getLastUpdateTime();
+      if(d != null){
+        var now = new Date();
+        this.lastUpdateTime = d;
+        this.dateString = this.getTimeDifference(this.lastUpdateTime, now)
+      } else {
+        this.refreshData();
+      }
     } else {
-      this.refreshData();
+      var charData = this.esiService.loadLocalAuthData();
+      if(charData != null){
+        this.characterData = charData;
+        this.name = charData.characterName;
+      }
+      this.view = 4;
     }
-
   }
 
   loadData(){

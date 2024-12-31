@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs';
 import { AuthorizedCharacterData } from '../Models/AuthorizedCharacterData';
-import { API_URL } from '../Constants/Constants';
+import { API_URL, WHITELIST } from '../Constants/Constants';
 import { StructureItem } from '../Models/StructureItem';
 
 @Injectable({
@@ -40,6 +40,19 @@ export class ESIServiceService {
     }
 
     return structureList;
+  }
+
+  checkWhitelist(){
+    var data = this.loadLocalAuthData();
+    if(data != null){
+      if(WHITELIST.includes(data?.corporationID.toString())){
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
   /* ------------- Authentication methods --------------------- */

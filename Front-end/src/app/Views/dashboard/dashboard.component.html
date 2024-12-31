@@ -3,7 +3,7 @@
         <img src="/assets/items/Structure.png" alt="" style="max-height: 40px; margin-right: 10px;">
         <p>Structures</p>
         <span style="flex: 1"></span>
-        <button class="login-button" style="margin: 0; margin-right: 10px;" (click)="view = 1">
+        <button class="login-button" style="margin: 0; margin-right: 10px;" (click)="view = 1" *ngIf="whitelisted">
             <p style="font-size: 15px;">Overview</p>
             <img src="/assets/items/Structure.png" alt="Refresh data" style="height: 20px; margin-left: 10px;">
         </button>
@@ -80,9 +80,24 @@
                 <p style="margin-top: 100px"><b>Report a bug</b></p>
                 <p style="margin-top: 20px">If you've found a bug, please report it on Github!</p>
                 <br>
+                <p>Or if you wish to host an instance for yourself?</p>
+                <br>
                 <a href="https://github.com/Ludvigaman/upwell-monitor/issues" target="_blank">
                     <img src="/assets/github.png" style="height: 50px" alt="">
                 </a>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="view == 4">
+            <div style="text-align: center;">
+                <p style="margin-top: 100px"><b>Whitelist</b></p>
+                <p style="margin-top: 20px">It seems your corporation isn't on the whitelist to use this instance of Upwell Monitor...</p>
+                <p>This instance is only open for the following corporations:</p>
+                <br>
+                <p><b>Brothers of Tyr</b></p>
+                <br>
+                <br>
+                <p style="font-size: 16px;">I'd be happy to add your corporation to the whitelist, just poke me / mail me in EvE:</p>
+                <p><b style="font-size: 16px;">Angelica Takanawa</b></p>
             </div>
         </ng-container>
     </div>
