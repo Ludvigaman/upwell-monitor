@@ -16,6 +16,7 @@ namespace Back_end.Controllers
         private readonly IEsiClient _client;
         private readonly ESIService _esiService;
         private readonly List<string> _whitelist;
+        private readonly bool _whitelistEnabled;
 
 
         public ESIController(IEsiClient client, IConfiguration configuration) {
@@ -23,6 +24,7 @@ namespace Back_end.Controllers
             _esiService = new ESIService(client);
             _client = client;
             _whitelist = configuration.GetSection("Whitelist").Get<List<string>>();
+            _whitelistEnabled = configuration.GetSection("WhitelistEnabled").Get<bool>();
         }
 
         [HttpGet("createAuthenticationUrl")]
@@ -65,14 +67,22 @@ namespace Back_end.Controllers
         [HttpPost("getStructureList")]
         public async Task<IActionResult> GetStructureList([FromBody] AuthorizedCharacterData validationData)
         {
-            if (_whitelist.Contains(validationData.CorporationID.ToString())){
+            if(_whitelistEnabled){
+                 if (_whitelist.Contains(validationData.CorporationID.ToString())
+                     || _whitelist.Contains(validationData.AllianceID.ToString())){
+                    _client.SetCharacterData(validationData);
+                    var structureList = await _esiService.GetStructureIdList();
+    
+                    return Ok(structureList);
+                } else
+                {
+                    return BadRequest("Your corporation isn't on the whitelist...");
+                }   
+            } else {
                 _client.SetCharacterData(validationData);
                 var structureList = await _esiService.GetStructureIdList();
 
                 return Ok(structureList);
-            } else
-            {
-                return BadRequest("Your corporation isn't on the whitelist...");
             }
         }
     }
