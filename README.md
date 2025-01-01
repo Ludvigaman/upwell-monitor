@@ -5,6 +5,7 @@ https://upwell-monitor.ludvigaman.se </br>
 You're also free to host it yourself, please check the "Set-up" chapter at the bottom.
 </br></br>
 The application has a front-end built in Angular TypeScript, and a backend written in .NET 6.
+All data and tokens are stored client-side only.
 </br>The ESI.NET wrapper is provided by the wonderful contributors at Seraphx2, and their github can be found here: </br>
 https://github.com/seraphx2/ESI.NET
 
