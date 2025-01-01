@@ -11,6 +11,9 @@ export enum StructureTypes {
     Sotiyo = 35827
 }
 
+//Whitelist can use both corporation or allianceID
 export const WHITELIST: string[] = [
     "98186730"
 ]
+
+export const WHITELIST_ENABLED: boolean = true;
