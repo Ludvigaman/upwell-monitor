@@ -64,6 +64,18 @@ namespace Back_end.Controllers
             return Ok(authorizedCharacterData);
         }
 
+        [HttpGet("fetchWhitelist")]
+        public async Task<IActionResult> FetchWhitelist()
+        {
+            if (_whitelistEnabled)
+            {
+                return Ok(_whitelist);
+            } else
+            {
+                return Ok(false);
+            }
+        }
+
         [HttpPost("getStructureList")]
         public async Task<IActionResult> GetStructureList([FromBody] AuthorizedCharacterData validationData)
         {
