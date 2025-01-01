@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs';
 import { AuthorizedCharacterData } from '../Models/AuthorizedCharacterData';
-import { API_URL, WHITELIST } from '../Constants/Constants';
+import { API_URL } from '../Constants/Constants';
 import { StructureItem } from '../Models/StructureItem';
 
 @Injectable({
@@ -42,15 +42,40 @@ export class ESIServiceService {
     return structureList;
   }
 
-  checkWhitelist(){
-    var data = this.loadLocalAuthData();
-    if(data != null){
-      if(WHITELIST.includes(data?.corporationID.toString())){
-        return true;
-      } else {
+  async checkWhitelist(): Promise<boolean> {
+    const _url = `${this.baseUrl}/api/ESI/fetchWhitelist`;
+  
+    try {
+      const r = await this.http.get<false | string[]>(_url).toPromise();
+
+      if(r == undefined){
         return false;
       }
-    } else {
+  
+      if (r === false) {
+        console.log("Whitelist is turned off");
+        return true;
+      } else {
+        console.log("Whitelist is turned on");
+        const data = this.loadLocalAuthData();
+  
+        if (data != null) {
+          const corpId = data?.corporationID?.toString();
+          const allianceId = data?.allianceID?.toString();
+  
+          if (r.includes(corpId) || r.includes(allianceId)) {
+            console.log("User is whitelisted");
+            return true;
+          } else {
+            console.log("User is not whitelisted");
+            return false;
+          }
+        } else {
+          return false;
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching whitelist:", error);
       return false;
     }
   }

@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit{
   dateString = "N/A";
   name = "";
   view = 0;
-  whitelisted = false;
+  whitelisted: boolean;
 
   private intervalId: any;
 
@@ -24,9 +24,10 @@ export class DashboardComponent implements OnInit{
 
   }
   
-  ngOnInit(){
+  async ngOnInit(){
 
-    this.whitelisted = this.esiService.checkWhitelist();
+    this.whitelisted = await this.esiService.checkWhitelist();
+
     if(this.whitelisted){
       console.log("Checking data age...")
       this.checkDataAge();

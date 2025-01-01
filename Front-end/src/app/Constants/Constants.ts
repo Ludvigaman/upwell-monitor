@@ -1,4 +1,4 @@
-export const API_URL = "https://upwell-monitor.ludvigaman.se:4443"
+export const API_URL = "https://upwell-monitor.ludvigaman.se"
 
 export enum StructureTypes {
     Astrahus = 35832,
@@ -10,7 +10,3 @@ export enum StructureTypes {
     Azbel = 35826,
     Sotiyo = 35827
 }
-
-export const WHITELIST: string[] = [
-    "98186730"
-]
