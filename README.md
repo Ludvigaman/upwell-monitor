@@ -1,5 +1,5 @@
 # Upwell Structure Monitor
-An online tool for monitoring your EvE Online - Upwell structures
+An online tool for monitoring your EvE Online - Upwell structures</br>
 Free to use (whitelist is enabled, but open for requests on: </br>
 https://upwell-monitor.ludvigaman.se </br>
 You're also free to host it yourself, please check the "Set-up" chapter at the bottom.
