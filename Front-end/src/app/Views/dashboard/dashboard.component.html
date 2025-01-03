@@ -36,7 +36,7 @@
                             <p style="font-size: 16px;">{{ structure.name }}</p>
                             <p style="font-size: 16px; display: flex; justify-content: center;"><b>{{ getStructureTypeName(structure.typeId) }}</b><img src="{{getStructureIconPath(structure.typeId)}}" alt="" style="margin-left: 5px;"></p>
                         </div>
-                        <mat-progress-bar mode="determinate" value="{{ daysUntil(structure.fuelExpires) }}"></mat-progress-bar>
+                        <mat-progress-bar mode="determinate" value="{{ progressBarValue(daysUntil(structure.fuelExpires)) }}"></mat-progress-bar>
                         <div class="stats">
                             <div class="leftSide">
                                 <p style="font-size: 16px;">Fuel bay: <b>{{ structure.fuelBlocksInFuelBay }}</b> blocks</p>
