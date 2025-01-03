@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit{
   dateString = "N/A";
   name = "";
   view = 0;
+  maxFuel: number = 90;
   whitelisted: boolean;
 
   private intervalId: any;
@@ -132,6 +133,10 @@ export class DashboardComponent implements OnInit{
     const timeDiff = targetDate.getTime() - now.getTime(); // Difference in milliseconds
     const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
     return daysLeft;
+  }
+
+  progressBarValue(days: number){
+    return (days / 90) * 100;
   }
 
   getStructureImagePath(type: number){
