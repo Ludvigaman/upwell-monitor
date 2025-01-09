@@ -1,4 +1,4 @@
-export const API_URL = "https://upwell-monitor.ludvigaman.se"
+export const API_URL = "https://localhost:7056"
 
 export enum StructureTypes {
     Astrahus = 35832,
