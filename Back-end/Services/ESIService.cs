@@ -1,6 +1,7 @@
 ﻿using Back_end.Models;
 using ESI.NET;
 using ESI.NET.Models.Assets;
+using ESI.NET.Models.Corporation;
 
 namespace Back_end.Services
 {
@@ -10,6 +11,10 @@ namespace Back_end.Services
         private List<Item> _allItems = new List<Item>();
         private List<Item> _fuelBlocks = new List<Item>();
         private List<StructureItem> _returnStructures = new List<StructureItem>();
+
+        private List<Structure> structureList = new List<Structure>();
+        private List<Starbase> starbaseList = new List<Starbase>();
+
         public ESIService(IEsiClient client) {
             _client = client;
         }
@@ -28,8 +33,15 @@ namespace Back_end.Services
 
             var location_flag = "StructureFuel";
 
+            // ------ Upwell structures ------
             var structureResponse = await _client.Corporation.Structures();
-            var structureList = structureResponse.Data;
+            structureList.AddRange(structureResponse.Data);
+
+            for (var i = 2; i <= structureResponse.Pages; i++)
+            {
+                var itemPage = await _client.Corporation.Structures(i);
+                structureList.AddRange(itemPage.Data);
+            }
 
             structureList.ForEach(structure =>
             {
@@ -44,9 +56,36 @@ namespace Back_end.Services
                 _returnStructures.Add(struc);
             });
 
-            //Load page 1
-            var assetResponse = await _client.Assets.ForCorporation();
+            // ------ POS bases ------
+            var starbaseResponse = await _client.Corporation.Starbases();
+            starbaseList.AddRange(starbaseResponse.Data);
 
+            for (var i = 2; i <= starbaseResponse.Pages; i++)
+            {
+                var itemPage = await _client.Corporation.Starbases(i);
+                starbaseList.AddRange(itemPage.Data);
+            }
+
+            starbaseList.ForEach(starbase =>
+            {
+                var baseItem = _client.Corporation.Starbase(starbase.StarbaseId, starbase.SystemId);
+
+                //CONTINUE
+
+                //var struc = new StructureItem
+                //{
+                //    FuelBlocksInFuelBay = 0,
+                //    FuelExpires = null,
+                //    Id = baseItem.StructureId,
+                //    Name = starbase.Name,
+                //    TypeId = baseItem.TypeId
+                //};
+                //_returnStructures.Add(struc);
+
+            });
+
+            // ------ Assets ------
+            var assetResponse = await _client.Assets.ForCorporation();
             _allItems.AddRange(assetResponse.Data);
 
             for(var i = 2; i <= assetResponse.Pages; i++) {
