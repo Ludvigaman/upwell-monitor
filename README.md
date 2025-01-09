@@ -1,7 +1,10 @@
 # Upwell Structure Monitor
 An online tool for monitoring your EvE Online - Upwell structures</br>
-Free to use (whitelist is enabled, but open for requests on: </br>
+Free to use </br>
+*(publicly available; but should I start to see people overloading the system, I'll turn on whitelist)* </br>
+
 https://upwell-monitor.ludvigaman.se </br>
+
 You're also free to host it yourself, please check the "Set-up" chapter at the bottom.
 </br></br>
 The application has a front-end built in Angular TypeScript, and a backend written in .NET 6.
