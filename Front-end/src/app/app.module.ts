@@ -10,9 +10,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSelectModule } from '@angular/material/select';
-
-
-
+import { APP_INITIALIZER } from '@angular/core';
+import { AppConfigService } from './Services/app-config.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +28,18 @@ import { MatSelectModule } from '@angular/material/select';
     MatSelectModule
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [AppConfigService],
+      useFactory: (appConfigService: AppConfigService) => {
+        return () => {
+          //Make sure to return a promise!
+          return appConfigService.loadAppConfig();
+        };
+      }
+    }
   ],
   bootstrap: [AppComponent]
 })

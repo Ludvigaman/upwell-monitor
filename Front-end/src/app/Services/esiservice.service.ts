@@ -1,18 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs';
 import { AuthorizedCharacterData } from '../Models/AuthorizedCharacterData';
-import { API_URL } from '../Constants/Constants';
 import { StructureItem } from '../Models/StructureItem';
+import { AppConfigService } from './app-config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ESIServiceService {
 
-  baseUrl = API_URL;
+  baseUrl: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private appConfigService: AppConfigService) {
+    this.baseUrl = this.appConfigService.apiBaseUrl();
+  }
 
   getStructureList() {
     var validationData = this.loadLocalAuthData();

@@ -10,3 +10,6 @@
 /Back-end/.config
 /Back-end/bin/Release/net6.0
 /Back-end/Properties/PublishProfiles
+/Back-end/.vs
+/.vs/upwell-monitor/v17
+/.vs

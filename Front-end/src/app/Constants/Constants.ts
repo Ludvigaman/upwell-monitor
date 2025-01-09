@@ -1,5 +1,3 @@
-export const API_URL = "https://localhost:7056"
-
 export enum StructureTypes {
     Astrahus = 35832,
     Fortizar = 35833,
