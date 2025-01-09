@@ -1,6 +1,7 @@
 ﻿using Back_end.Models;
 using ESI.NET;
 using ESI.NET.Models.Assets;
+using ESI.NET.Models.Corporation;
 
 namespace Back_end.Services
 {
@@ -10,7 +11,11 @@ namespace Back_end.Services
         private List<Item> _allItems = new List<Item>();
         private List<Item> _fuelBlocks = new List<Item>();
         private List<StructureItem> _returnStructures = new List<StructureItem>();
-        public ESIService(IEsiClient client) {
+
+        private List<Structure> structureList = new List<Structure>();
+
+        public ESIService(IEsiClient client)
+        {
             _client = client;
         }
 
@@ -28,8 +33,15 @@ namespace Back_end.Services
 
             var location_flag = "StructureFuel";
 
+            // ------ Upwell structures ------
             var structureResponse = await _client.Corporation.Structures();
-            var structureList = structureResponse.Data;
+            structureList.AddRange(structureResponse.Data);
+
+            for (var i = 2; i <= structureResponse.Pages; i++)
+            {
+                var itemPage = await _client.Corporation.Structures(i);
+                structureList.AddRange(itemPage.Data);
+            }
 
             structureList.ForEach(structure =>
             {
@@ -86,36 +98,8 @@ namespace Back_end.Services
 
                 double consumption = structure.FuelBlocksInFuelBay / daysUntilExpiration;
                 structure.FuelBlocksPerDay = (int)Math.Round(consumption);
-                
+
             });
-
-
-
-            /* -------- Handle fuel reserves ------------ */
-            /* NOT WORKING, MEH
-
-            var fuelBlocksInReserves = _fuelBlocks.Where(item => item.LocationFlag != location_flag).ToList();
-
-            var fuelBlockReserveQuantities = fuelBlocksInReserves
-                .GroupBy(item => item.LocationId)
-                .Select(group => new
-                {
-                    LocationId = group.Key,
-                    TotalQuantity = group.Sum(item => item.Quantity)
-                })
-                .ToList();
-
-
-            _returnStructures.ForEach(structure =>
-            {
-              
-                var fuelBlocks = fuelBlockReserveQuantities.FirstOrDefault(fb => fb.LocationId == structure.id);
-
-              
-                structure.fuelBlocksInReserve = fuelBlocks?.TotalQuantity ?? 0;
-            });
-
-            */
 
             return _returnStructures;
 
