@@ -146,6 +146,19 @@ export class ESIServiceService {
     }
   }
 
+  saveFuelBayDays(days: number){
+    localStorage.setItem("fuelDays", days.toString());
+  }
+
+  loadFuelBayDays(){
+    var days = localStorage.getItem("fuelDays");
+    if(days != null){
+      return parseInt(days, 10);
+    } else {
+      return 90;
+    }
+  }
+
   getLastUpdateTime(){
     var dateString = localStorage.getItem("lastFetch");
     if(dateString != null){
