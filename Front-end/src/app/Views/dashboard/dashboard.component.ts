@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ESIServiceService } from '../../Services/esiservice.service';
 import { StructureItem } from '../../Models/StructureItem';
 import { AuthorizedCharacterData } from '../../Models/AuthorizedCharacterData';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +17,8 @@ export class DashboardComponent implements OnInit{
   dateString = "N/A";
   name = "";
   view = 0;
-  maxFuel: number = 90;
+  maxFuel: string = "90";
+  maxFuelNumber: number = 90;
   whitelisted: boolean;
 
   private intervalId: any;
@@ -57,9 +59,20 @@ export class DashboardComponent implements OnInit{
     }
   }
 
+  onFuelChange(event: MatSelectChange): void {
+    const selectedValue = event.value;
+    this.maxFuelNumber = parseInt(selectedValue, 10);
+    this.esiService.saveFuelBayDays(this.maxFuelNumber);
+    console.log(this.maxFuelNumber)
+  }
+
   loadData(){
     this.structureData = [];
     this.structureData = this.esiService.loadStructureListFromStorage();
+
+    var fuelBayAmount = this.esiService.loadFuelBayDays();
+    this.maxFuel = fuelBayAmount.toString();
+    this.maxFuelNumber = fuelBayAmount;
 
     this.structureData.sort((a, b) => {
       const dateA = new Date(a.fuelExpires).getTime();
@@ -136,7 +149,7 @@ export class DashboardComponent implements OnInit{
   }
 
   progressBarValue(days: number){
-    return (days / 90) * 100;
+    return (days / this.maxFuelNumber) * 100;
   }
 
   getStructureImagePath(type: number){
