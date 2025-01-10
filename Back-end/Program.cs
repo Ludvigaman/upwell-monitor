@@ -7,7 +7,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddCors();
+// Configure CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowedOriginPolicy", policy =>
+    {
+        policy.WithOrigins("https://upwell-monitor.ludvigaman.se") // Specify the allowed origin
+              .AllowAnyMethod()                                   // Allow all HTTP methods
+              .AllowAnyHeader()                                   // Allow all headers
+              .AllowCredentials();                                // Optional: If using cookies or credentials
+    });
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -30,12 +40,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(x => x
-    .AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader());
-
+// Enforce HTTPS
 app.UseHttpsRedirection();
+
+// Use the configured CORS policy
+app.UseCors("AllowedOriginPolicy");
 
 app.UseAuthorization();
 
