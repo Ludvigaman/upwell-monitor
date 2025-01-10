@@ -63,7 +63,6 @@ export class DashboardComponent implements OnInit{
     const selectedValue = event.value;
     this.maxFuelNumber = parseInt(selectedValue, 10);
     this.esiService.saveFuelBayDays(this.maxFuelNumber);
-    console.log(this.maxFuelNumber)
   }
 
   loadData(){
@@ -125,7 +124,7 @@ export class DashboardComponent implements OnInit{
   }
 
   nextShipment(structure: StructureItem){
-    var desiredAmount = (90 * structure.fuelBlocksPerDay) - structure.fuelBlocksInFuelBay;
+    var desiredAmount = (this.maxFuelNumber * structure.fuelBlocksPerDay) - structure.fuelBlocksInFuelBay;
     if(desiredAmount < 0){
       return 0;
     } else {
