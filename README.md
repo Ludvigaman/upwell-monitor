@@ -11,10 +11,15 @@ The application has a front-end built in Angular TypeScript, and a backend writt
 All data and tokens are stored client-side only.
 </br>The ESI.NET wrapper is provided by the wonderful contributors at Seraphx2, and their github can be found here: </br>
 https://github.com/seraphx2/ESI.NET
+# Upcoming changes
+- v1.2
+-   Error page for users that are not directors.
 
 # Release notes
-- v1.1 -> Added the option for the user to change the "target" fuel level in days. Found under settings.
-- V1.0 -> Initial release.
+- v1.1
+-   Added the option for the user to change the "target" fuel level in days. Found under settings.
+- v1.0
+-   Initial release.
 
 # Keep in mind
 - This tool can only be used if you're a Director for your corporation, since it requires the permissions to read the corporation assets.
