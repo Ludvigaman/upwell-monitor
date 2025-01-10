@@ -13,13 +13,15 @@ All data and tokens are stored client-side only.
 https://github.com/seraphx2/ESI.NET
 # Upcoming changes
 - v1.2
--- Error page for users that are not directors.
+</br>Error page for users that are not directors.
 
 # Release notes
 - v1.1
--- Added the option for the user to change the "target" fuel level in days. Found under settings.
+</br>Added the option for the user to change the "target" fuel level in days. Found under settings.
+
 - v1.0
--- Initial release.
+</br>Initial release.
+
 
 # Keep in mind
 - This tool can only be used if you're a Director for your corporation, since it requires the permissions to read the corporation assets.
