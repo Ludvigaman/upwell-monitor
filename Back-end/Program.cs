@@ -7,15 +7,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-// Configure CORS
+var hostName = builder.Configuration.GetValue<string>("FrontEndURL");
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowedOriginPolicy", policy =>
     {
-        policy.WithOrigins("https://upwell-monitor.ludvigaman.se") // Specify the allowed origin
-              .AllowAnyMethod()                                   // Allow all HTTP methods
-              .AllowAnyHeader()                                   // Allow all headers
-              .AllowCredentials();                                // Optional: If using cookies or credentials
+        policy.WithOrigins(hostName) // Use the allowedHost variable
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials();
     });
 });
 
@@ -40,11 +41,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Enforce HTTPS
-app.UseHttpsRedirection();
-
-// Use the configured CORS policy
 app.UseCors("AllowedOriginPolicy");
+
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
