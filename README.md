@@ -23,6 +23,8 @@ https://github.com/seraphx2/ESI.NET
 - v1.0
 </br>Initial release.
 
+# Planned features?
+- POS monitoring somehow?
 
 # Keep in mind
 - This tool can only be used if you're a Director for your corporation, since it requires the permissions to read the corporation assets.
