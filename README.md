@@ -5,7 +5,7 @@ Free to use </br>
 
 https://upwell-monitor.ludvigaman.se </br>
 
-You're also free to host it yourself, please check the "Set-up" chapter at the bottom.
+You're also free to host it yourself, please check the "Set-up" in the Wiki.
 </br></br>
 The application has a front-end built in Angular TypeScript, and a backend written in .NET 6.
 All data and tokens are stored client-side only.
