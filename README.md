@@ -11,7 +11,7 @@ The application has a front-end built in Angular TypeScript, and a backend writt
 All data and tokens are stored client-side only.
 </br>The ESI.NET wrapper is provided by the wonderful contributors at Seraphx2, and their github can be found here: </br>
 https://github.com/seraphx2/ESI.NET
-# Upcoming changes
+# Upcoming releases
 - v1.2
 </br>Error page for users that are not directors.
 </br>Added strict CORS policy to the backend to prevent misuse.
