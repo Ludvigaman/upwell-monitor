@@ -14,6 +14,7 @@ https://github.com/seraphx2/ESI.NET
 # Upcoming changes
 - v1.2
 </br>Error page for users that are not directors.
+</br>Added strict CORS policy to the backend to prevent misuse.
 
 # Release notes
 - v1.1
