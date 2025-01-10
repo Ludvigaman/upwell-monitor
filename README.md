@@ -23,7 +23,7 @@ https://github.com/seraphx2/ESI.NET
 - v1.0
 </br>Initial release.
 
-# Planned features?
+# Planned features
 - POS monitoring somehow?
 
 # Keep in mind
