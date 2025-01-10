@@ -108,10 +108,15 @@ export class DashboardComponent implements OnInit{
     }
   }
 
-  refreshData(){
-    console.log("Refreshing data...")
-    this.esiService.checkTokenExpiry();
-    this.esiService.getStructureList();
+  async refreshData(){
+    if(!localStorage.getItem("error")){
+      console.log("Refreshing data...")
+      this.esiService.checkTokenExpiry();
+      this.esiService.getStructureList();
+    } else {
+      this.view = 5;
+      this.whitelisted = false;
+    }
   }
 
   logOut(){

@@ -16,19 +16,23 @@ export class ESIServiceService {
     this.baseUrl = this.appConfigService.apiBaseUrl();
   }
 
-  getStructureList() {
+  async getStructureList() {
     var validationData = this.loadLocalAuthData();
     if(validationData != null){
       const _url = `${this.baseUrl}/api/ESI/getStructureList`;
   
       this.http.post<StructureItem[]>(_url, validationData).subscribe(r => {
-        console.log(r);
         localStorage.setItem("lastFetch", new Date().toISOString());
         localStorage.setItem("structures", JSON.stringify(r));
+        location.reload();
+      }, err => {
+        localStorage.setItem("error", "director")
         location.reload();
       });
     } else {
       console.log("Error in getStructureList")
+      localStorage.setItem("error", "director")
+      location.reload();
     }
   }  
 
