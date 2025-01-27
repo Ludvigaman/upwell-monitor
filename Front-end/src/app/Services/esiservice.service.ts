@@ -41,6 +41,7 @@ export class ESIServiceService {
     var jsonData = localStorage.getItem("structures");
     if(jsonData != null){
       structureList = JSON.parse(jsonData);
+      localStorage.removeItem("error");
     } else {
       structureList = [];
     }
