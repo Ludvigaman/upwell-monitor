@@ -5,5 +5,6 @@ export class StructureItem {
     fuelBlocksInFuelBay: number;
     fuelBlocksPerDay: number;
     typeId: number;
+    services: string[];
 }
 

@@ -7,8 +7,8 @@
             <p style="font-size: 15px;">Overview</p>
             <img src="/assets/items/Structure.png" alt="Refresh data" style="height: 20px; margin-left: 10px;">
         </button>
-        <button class="login-button" style="margin: 0; margin-right: 10px;" (click)="view = 2">
-            <p style="font-size: 15px;">Guide / Data statistics</p>
+        <button class="login-button" style="margin: 0; margin-right: 10px;" (click)="openStatistics()">
+            <p style="font-size: 15px;">Statistics</p>
             <img src="/assets/items/help.png" alt="Refresh data" style="height: 20px; margin-left: 10px;">
         </button>
         <button class="login-button" style="margin: 0; margin-right: 10px;" (click)="view = 3">
@@ -34,19 +34,21 @@
                     <div style="flex:1">
                         <div class="info">
                             <p style="font-size: 16px;">{{ structure.name }}</p>
-                            <p style="font-size: 16px; display: flex; justify-content: center;"><b>{{ getStructureTypeName(structure.typeId) }}</b><img src="{{getStructureIconPath(structure.typeId)}}" alt="" style="margin-left: 5px;"></p>
+                            <p style="font-size: 16px; display: flex; justify-content: center;"><b>{{ getStructureTypeName(structure.typeId) }}</b><img src="{{getStructureIconPath(structure.typeId)}}" alt="" style="margin-left: 5px; height: 20px"></p>
                         </div>
-                        <mat-progress-bar mode="determinate" value="{{ progressBarValue(daysUntil(structure.fuelExpires)) }}"></mat-progress-bar>
+                        <mat-progress-bar mode="determinate" style="width: 97%; margin-left: 10px;" value="{{ progressBarValue(daysUntil(structure.fuelExpires)) }}"></mat-progress-bar>
                         <div class="stats">
                             <div class="leftSide">
                                 <p style="font-size: 16px;">Fuel bay: <b>{{ structure.fuelBlocksInFuelBay }}</b> blocks</p>
                                 <p style="font-size: 16px;">Expiry date: {{ structure.fuelExpires | date:'d MMM y'}}</p>
                                 <p style="font-size: 16px;">Next shipment:</p>
+                                <p style="font-size: 16px;">Services:</p>
                             </div>
                             <div class="rightSide">
                                 <p style="font-size: 16px;"><b>{{ structure.fuelBlocksPerDay }}</b> / day</p>
                                 <p style="font-size: 16px;"><b [ngStyle]="{'color': getTextColor(daysUntil(structure.fuelExpires))}">{{ daysUntil(structure.fuelExpires) }}</b> days left</p>
                                 <p style="font-size: 16px; display: flex; justify-content: center; margin-top: 2px;"><b>{{ nextShipment(structure) }}</b><img style="height: 20px;" src="/assets/items/FuelBlock.png" alt=""></p>
+                                <p style="font-size: 16px; text-align: right;">{{ createServiceString(structure) }}</p>
                             </div>
                         </div>
                     </div>
@@ -61,14 +63,19 @@
         </ng-container>
         <ng-container *ngIf="view == 2">
             <div style="text-align: center;">
-                <p style="margin-top: 100px"><b>Guide</b></p>
-                <p style="margin-top: 20px">Your current data is: <b>{{ dateString }}</b></p>
-                <br>
-                <p>The site automatically checks the age of your data, and fetches new data it if it's older than 1 hour.</p>
+                <p style="margin-top: 100px"><b>Statistics</b></p>
+                <p style="margin-top: 20px">Your local data is:</p>
+                <p style="margin-top: 5px;"><b>{{ dateString }}</b></p>
+                <br> 
+                <p>Your current infrastructure consumes:</p>
+                <p style="margin-top: 5px; display: flex; align-items: center; justify-content: center;"><b>{{ totalFuelBlocksPerDay * 30}} </b> <img style="height: 25px;" src="/assets/items/FuelBlock.png" alt=""> per month</p>
+                <p style="margin-top: 5px; display: flex; align-items: center; justify-content: center;"><b>({{ totalFuelBlocksPerDay }} </b> <img style="height: 25px;" src="/assets/items/FuelBlock.png" alt=""> per day)</p>
+
+                <p style="margin-top: 200px;">The site automatically checks the age of your data, and fetches new data it if it's older than 1 hour.</p>
                 <br>
                 <p>Disclaimer: All icons and EvE Online related assets are owned by CCP games. <br>
                     They are used in this application in accordance to the CCP Developer License Agreement.</p>
-                <p style="margin-top: 50px"><b>Special thanks to</b></p>
+                <p style="margin-top: 25px"><b>Special thanks to</b></p>
                 <p style="margin-top: 20px">The contributors at Seraphx2, for making the ESI.NET wrapper.</p>
                 <p>Find out more about their project here:</p>
                 <br>

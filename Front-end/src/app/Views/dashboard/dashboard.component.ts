@@ -21,6 +21,8 @@ export class DashboardComponent implements OnInit{
   maxFuelNumber: number = 90;
   whitelisted: boolean;
 
+  totalFuelBlocksPerDay = 0;
+
   private intervalId: any;
 
   constructor(private esiService: ESIServiceService){
@@ -59,10 +61,29 @@ export class DashboardComponent implements OnInit{
     }
   }
 
+  createServiceString(structure: StructureItem){
+    if(structure.services == null || structure.services == undefined){
+      return "-"
+    }
+    return structure.services.join(", ");
+  }
+
   onFuelChange(event: MatSelectChange): void {
     const selectedValue = event.value;
     this.maxFuelNumber = parseInt(selectedValue, 10);
     this.esiService.saveFuelBayDays(this.maxFuelNumber);
+  }
+
+  loadTotalConsumption() {    
+    this.totalFuelBlocksPerDay = 0;
+    this.structureData.forEach(s => {
+      this.totalFuelBlocksPerDay = this.totalFuelBlocksPerDay + s.fuelBlocksPerDay;
+    })
+  }
+
+  openStatistics(){
+    this.view = 2;
+    this.loadTotalConsumption();
   }
 
   loadData(){
@@ -78,12 +99,13 @@ export class DashboardComponent implements OnInit{
       const dateB = new Date(b.fuelExpires).getTime();
       return dateA - dateB; // Ascending order (earliest dates first)
     });
-
     var charData = this.esiService.loadLocalAuthData();
     if(charData != null){
       this.characterData = charData;
       this.name = charData.characterName;
     }
+
+    this.loadTotalConsumption();
 
     if(this.structureData.length > 0){
       this.view = 1;

@@ -45,13 +45,20 @@ namespace Back_end.Services
 
             structureList.ForEach(structure =>
             {
+                var services = new List<string>();
+                foreach (var service in structure.Services)
+                {
+                    services.Add(service.Name);
+                }
+
                 var struc = new StructureItem
                 {
                     FuelBlocksInFuelBay = 0,
                     FuelExpires = structure.FuelExpires,
                     Id = structure.StructureId,
                     Name = structure.Name,
-                    TypeId = structure.TypeId
+                    TypeId = structure.TypeId,
+                    Services = services
                 };
                 _returnStructures.Add(struc);
             });

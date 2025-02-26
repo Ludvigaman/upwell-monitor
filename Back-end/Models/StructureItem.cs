@@ -8,5 +8,6 @@
         public long FuelBlocksInFuelBay { get; set; }
         public long FuelBlocksPerDay { get; set; }
         public long TypeId { get; set; }
+        public List<string> Services { get; set; }
     }
 }
