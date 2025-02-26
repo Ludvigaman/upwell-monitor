@@ -13,8 +13,10 @@ All data and tokens are stored client-side only.
 https://github.com/seraphx2/ESI.NET
 # Upcoming releases
 - v1.2
-</br>Error page for users that are not directors.
+</br>Added an error page for users that are not directors.
 </br>Added strict CORS policy to the backend to prevent misuse.
+</br>Added station services
+</br>Added statistics page to display total infrastructure consumption
 
 # Release notes
 - v1.1
