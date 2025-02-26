@@ -35,6 +35,7 @@ export class DashboardComponent implements OnInit{
 
     if(this.whitelisted){
       console.log("Checking data age...")
+
       this.checkDataAge();
       this.intervalId = setInterval(() => {
         console.log("Checking data age...")
@@ -42,15 +43,7 @@ export class DashboardComponent implements OnInit{
       }, 60000);
       
       this.loadData();
-  
-      var d = this.esiService.getLastUpdateTime();
-      if(d != null){
-        var now = new Date();
-        this.lastUpdateTime = d;
-        this.dateString = this.getTimeDifference(this.lastUpdateTime, now)
-      } else {
-        this.refreshData();
-      }
+
     } else {
       var charData = this.esiService.loadLocalAuthData();
       if(charData != null){
@@ -114,12 +107,12 @@ export class DashboardComponent implements OnInit{
 
   checkDataAge(){
     var d = this.esiService.getLastUpdateTime();
+
     if(d != null){
       var now = new Date();
       this.lastUpdateTime = d;
       this.dateString = this.getTimeDifference(this.lastUpdateTime, now)
       if(this.dateString != "Up to date"){
-        console.log("Refreshing data...")
         this.refreshData();
       } else {
         console.log("Data still up to date...")
