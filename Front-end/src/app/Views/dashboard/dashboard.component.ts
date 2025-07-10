@@ -213,7 +213,19 @@ getStructureImagePath(type: number) {
         return "/assets/items/citadelMedium.png";
       case 35833:
         return "/assets/items/citadelLarge.png";
+      case 47516:
+        return "/assets/items/citadelLarge.png";
+      case 47513:
+        return "/assets/items/citadelLarge.png";
+      case 47514:
+        return "/assets/items/citadelLarge.png";
+      case 47515:
+        return "/assets/items/citadelLarge.png";
+      case 47512:
+        return "/assets/items/citadelLarge.png";
       case 35834:
+        return "/assets/items/citadelExtraLarge.png";
+      case 40340:
         return "/assets/items/citadelExtraLarge.png";
       case 35835:
         return "/assets/items/refineryMedium.png";
