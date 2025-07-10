@@ -171,28 +171,41 @@ export class DashboardComponent implements OnInit{
     return (days / this.maxFuelNumber) * 100;
   }
 
-  getStructureImagePath(type: number){
-    switch(type){
-      case 35832:
-        return "/assets/items/Astrahus.jpg";
-      case 35833:
-        return "/assets/items/Fortizar.jpg";
-      case 35834:
-        return "/assets/items/Keepstar.jpg";
-      case 35835:
-        return "/assets/items/Athanor.jpg";
-      case 35836:
-        return "/assets/items/Tatara.jpg";
-      case 35825:
-        return "/assets/items/Raitaru.jpg";
-      case 35826:
-        return "/assets/items/Azbel.jpg";
-      case 35827:
-        return "/assets/items/Sotiyo.jpg";
-      default:
-        return "";
-    }
+getStructureImagePath(type: number) {
+  switch(type){
+    case 35832:
+      return "/assets/items/Astrahus.jpg";
+    case 35833:
+      return "/assets/items/Fortizar.jpg";
+    case 35834:
+      return "/assets/items/Keepstar.jpg";
+    case 35835:
+      return "/assets/items/Athanor.jpg";
+    case 35836:
+      return "/assets/items/Tatara.jpg";
+    case 35825:
+      return "/assets/items/Raitaru.jpg";
+    case 35826:
+      return "/assets/items/Azbel.jpg";
+    case 35827:
+      return "/assets/items/Sotiyo.jpg";
+    case 47516:
+      return "/assets/items/Prometheus.jpg";
+    case 47513:
+      return "/assets/items/Draccous.jpg";
+    case 47514:
+      return "/assets/items/Horizon.jpg";
+    case 47515:
+      return "/assets/items/Marginis.jpg";
+    case 47512:
+      return "/assets/items/Moreau.jpg";
+    case 40340:
+      return "/assets/items/Palatine.jpg";
+    default:
+      return "";
   }
+}
+
 
   getStructureIconPath(type: number){
     switch(type){
@@ -217,28 +230,40 @@ export class DashboardComponent implements OnInit{
     }
   }
 
-  getStructureTypeName(type: number){
-    switch(type){
-      case 35832:
-        return "Astrahus";
-      case 35833:
-        return "Fortizar";
-      case 35834:
-        return "Keepstar";
-      case 35835:
-        return "Athanor";
-      case 35836:
-        return "Tatara";
-      case 35825:
-        return "Raitaru";
-      case 35826:
-        return "Azbel";
-      case 35827:
-        return "Sotiyo";
-      default:
-        return "";
-    }
+getStructureTypeName(type: number){
+  switch(type){
+    case 35832:
+      return "Astrahus";
+    case 35833:
+      return "Fortizar";
+    case 35834:
+      return "Keepstar";
+    case 35835:
+      return "Athanor";
+    case 35836:
+      return "Tatara";
+    case 35825:
+      return "Raitaru";
+    case 35826:
+      return "Azbel";
+    case 35827:
+      return "Sotiyo";
+    case 47516:
+      return "Prometheus Fortizar";
+    case 47513:
+      return "Draccous Fortizar";
+    case 47514:
+      return "Horizon Fortizar";
+    case 47515:
+      return "Marginis Fortizar";
+    case 47512:
+      return "Moreau Fortizar";
+    case 40340:
+      return "Palatine Keepstar";
+    default:
+      return "";
   }
+}
   
 
   getTimeDifference(lastUpdateTime: Date, dateNow: Date): string {
